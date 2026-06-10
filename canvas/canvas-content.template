@@ -1,0 +1,48 @@
+package com.kmpile.canvas
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+/**
+ * Concrete canvas content — GITIGNORED (seeded from canvas-content.template). Edit freely to
+ * preview any composable; your changes stay local. Author at a natural (wrapped) size — the canvas
+ * shows it 1:1 and you pinch/scroll to zoom. Delete this file + rebuild to reset to this default.
+ */
+@Composable
+internal fun CanvasContent() {
+    var count by remember { mutableStateOf(0) }
+    Column(
+        modifier = Modifier.padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text("Canvas", style = MaterialTheme.typography.headlineMedium)
+        Text(
+            "Edit CanvasContent.kt to preview any composable.",
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        ElevatedCard {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text("Sample card", style = MaterialTheme.typography.titleMedium)
+                Button(onClick = { count++ }) { Text("Tapped $count times") }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+[versions]
+agp = "9.2.1"
+compileSdk = "37"
+minSdk = "24"
+targetSdk = "37"
+jvmTarget = "21"
+# compose — drives all org.jetbrains.compose.* artifacts incl. material3 (they share a version).
+compose = "1.12.0-alpha01"
+composeMaterialIcons = "1.7.3"
+composeHotReload = "1.2.0-alpha01"
+kotlin = "2.4.0"
+activityCompose = "1.13.0"
+coroutines = "1.11.0"
+kotlinxBrowser = "0.5.0"
+
+[libraries]
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+compose-ui = { group = "org.jetbrains.compose.ui", name = "ui", version.ref = "compose" }
+compose-foundation = { group = "org.jetbrains.compose.foundation", name = "foundation", version.ref = "compose" }
+compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "compose" }
+compose-material-icons-extended = { group = "org.jetbrains.compose.material", name = "material-icons-extended", version.ref = "composeMaterialIcons" }
+kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "coroutines" }
+kotlinx-browser = { group = "org.jetbrains.kotlinx", name = "kotlinx-browser", version.ref = "kotlinxBrowser" }
+
+[bundles]
+compose-core = ["compose-ui", "compose-foundation", "compose-material3", "compose-material-icons-extended"]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

@@ -1,0 +1,25 @@
+# Gradle / build
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+local.properties
+
+# Kotlin
+.kotlin/
+
+# Scratch preview content — seeded from canvas-content.template on first build; never committed so
+# local edits stay local (see the "What you edit" section of the README).
+canvas/src/commonMain/kotlin/com/kmpile/canvas/CanvasContent.kt
+
+# Logs
+*.log
+
+# macOS / Xcode
+.DS_Store
+iosApp/build/
+iosApp/DerivedData/
