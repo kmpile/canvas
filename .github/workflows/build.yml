@@ -1,0 +1,57 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  jvm-wasm-android:
+    name: JVM + wasm + Android (no Apple toolchain)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+      - uses: android-actions/setup-android@v4
+      - name: Install Android SDK platform 37 (= API 17)
+        run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0"
+      - name: Build desktop jar, wasm distribution, Android APK
+        env:
+          CANVAS_SKIP_IOS: "1"
+        run: >
+          ./gradlew
+          :canvas:jvmJar
+          :canvas:wasmJsBrowserDistribution
+          :androidApp:assembleDebug
+          --console=plain
+
+  ios:
+    name: iOS Kotlin targets (klibs)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+      # Configuring the :canvas / :androidApp Android targets needs the SDK even
+      # for iOS-only tasks, and macOS runners ship without the right platform.
+      - uses: android-actions/setup-android@v4
+      - name: Install Android SDK platform 37 (= API 17)
+        run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0"
+      - name: Compile iOS Kotlin targets
+        run: >
+          ./gradlew
+          :canvas:compileKotlinIosArm64
+          :canvas:compileKotlinIosSimulatorArm64
+          --console=plain
