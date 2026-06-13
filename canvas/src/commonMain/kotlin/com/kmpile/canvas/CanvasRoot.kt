@@ -641,7 +641,10 @@ private fun ControlPill(
                 shortcutsEnabled = shortcutsEnabled,
                 interactionSource = zoomInteractionSource,
             )
-            PillModeSwitch(checked = dark, onCheckedChange = onDarkChange) {
+            // A day/night switch: ON (right) = day ☀, OFF (left) = night ☾ — a day cycle starts at
+            // midnight, so left-to-right reads night-to-day. The controller's canonical state is
+            // `dark` (it follows the system's isDark), so invert at this UI boundary only.
+            PillModeSwitch(checked = !dark, onCheckedChange = { onDarkChange(!it) }) {
                 Text(text = if (dark) "☾" else "☀", style = MaterialTheme.typography.titleSmall)
             }
         }
